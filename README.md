@@ -18,13 +18,23 @@ A web-based library visitor logging system built with HTML, CSS, and Supabase.
 - Role-based access (User & Admin)
 - Visitor statistics dashboard
 
-```
-> ⚠️ We will replace `your-deployment-link-here` with the real link later when we deploy to Vercel.
+Instruction
+Student Account:
+Email:jcesperanza@neu.edu.ph
+Password:Jcesperanza@123
+Role: Student
 
----
+Admin Account:
+Email: jcesperanza.admin@neu.edu.ph
+Password: Admin@1234
+Role: Admin
 
-### Your folder should now look like this:
-```
+Student Account:
+Email: zymon.cuatriz@neu.edu.ph
+Password: Zymon@1234
+Role: Student
+
+
 
 LiblogSystem/
 ├── index.html

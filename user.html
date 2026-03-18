@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEU Library - Student Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="user.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <div class="navbar">
+        <h1 class="nav-title">NEU Library</h1>
+        <div class="nav-right">
+          <button id="log-visit-btn" class="log-visit-btn">+ Log Visit</button>
+          <button id="logout-btn" class="logout-btn">Log Out</button>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="welcome-banner">
+          <div class="welcome-text">
+            <h2 id="welcome-msg">Welcome to NEU Library!</h2>
+            <p id="user-info"></p>
+          </div>
+          <div class="welcome-icon">📚</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🔢</div>
+            <div class="stat-info">
+              <p class="stat-label">Total Visits</p>
+              <h2 id="total-visits" class="stat-value">0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-info">
+              <p class="stat-label">Last Visit</p>
+              <h2 id="last-visit" class="stat-value">—</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">🎓</div>
+            <div class="stat-info">
+              <p class="stat-label">College</p>
+              <h2 id="user-college" class="stat-value">—</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-box">
+          <h3>My Visit History</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="visits-table">
+              <tr>
+                <td colspan="4" class="empty-msg">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="user.js"></script>
+  </body>
+</html>

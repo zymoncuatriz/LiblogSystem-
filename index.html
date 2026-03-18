@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEU Library Log System</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <div class="logo">
+          <h1>NEU Library</h1>
+          <p>Log System</p>
+        </div>
+
+        <div id="error-msg" class="error-msg hidden"></div>
+
+        <div class="form-group">
+          <label for="identifier">Student ID or Email</label>
+          <input
+            type="text"
+            id="identifier"
+            placeholder="Enter your Student ID or Email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <button id="login-btn" class="login-btn">Log In</button>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

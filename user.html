@@ -3,76 +3,184 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEU Library - Student Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>NEU Library — Student Dashboard</title>
+    <link rel="stylesheet" href="theme.css" />
     <link rel="stylesheet" href="user.css" />
   </head>
   <body>
-    <div class="dashboard-container">
-      <div class="navbar">
-        <h1 class="nav-title">NEU Library</h1>
-        <div class="nav-right">
-          <button id="log-visit-btn" class="log-visit-btn">+ Log Visit</button>
-          <button id="logout-btn" class="logout-btn">Log Out</button>
+    <div class="app-wrapper">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">NEU</div>
+          <span class="sidebar-title">NEU Library</span>
+          <button class="sidebar-close" id="sidebar-close">✕</button>
         </div>
-      </div>
 
-      <div class="main-content">
-        <div class="welcome-banner">
-          <div class="welcome-text">
-            <h2 id="welcome-msg">Welcome to NEU Library!</h2>
-            <p id="user-info"></p>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" data-section="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+          <a href="#" class="nav-item" data-section="history">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Visit History</span>
+          </a>
+          <a href="log-visit.html" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span class="nav-label">Log Visit</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="btn-sidebar-logout">
+            <span>🚪</span>
+            <span>Log Out</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-btn" id="menu-btn">☰</button>
+            <div class="page-title" id="page-title">Dashboard</div>
           </div>
-          <div class="welcome-icon">📚</div>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">🔢</div>
-            <div class="stat-info">
-              <p class="stat-label">Total Visits</p>
-              <h2 id="total-visits" class="stat-value">0</h2>
+          <div class="topbar-right">
+            <div class="user-badge" id="user-badge">
+              <div class="user-avatar" id="user-avatar">JD</div>
+              <span id="user-name-top">Loading...</span>
             </div>
+            <button class="dark-toggle" id="dark-toggle">🌙</button>
           </div>
+        </header>
 
-          <div class="stat-card">
-            <div class="stat-icon">📅</div>
-            <div class="stat-info">
-              <p class="stat-label">Last Visit</p>
-              <h2 id="last-visit" class="stat-value">—</h2>
+        <main class="content">
+          <section id="section-dashboard" class="section active">
+            <div class="welcome-banner fade-in">
+              <div class="welcome-text">
+                <h2 id="welcome-msg">Welcome to NEU Library!</h2>
+                <p id="user-info">Loading...</p>
+              </div>
+              <div class="welcome-illustration">📚</div>
             </div>
-          </div>
 
-          <div class="stat-card">
-            <div class="stat-icon">🎓</div>
-            <div class="stat-info">
-              <p class="stat-label">College</p>
-              <h2 id="user-college" class="stat-value">—</h2>
+            <div class="stats-row fade-in">
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #fde8eb">
+                  <span style="font-size: 20px">🔢</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">Total Visits</p>
+                  <h3 id="total-visits" class="stat-value">0</h3>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #dbeafe">
+                  <span style="font-size: 20px">📅</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">Last Visit</p>
+                  <h3 id="last-visit" class="stat-value">—</h3>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #dcfce7">
+                  <span style="font-size: 20px">🎓</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">College</p>
+                  <h3 id="user-college" class="stat-value">—</h3>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="table-box">
-          <h3>My Visit History</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Reason</th>
-                <th>Date</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody id="visits-table">
-              <tr>
-                <td colspan="4" class="empty-msg">Loading...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            <div class="log-visit-cta fade-in">
+              <div class="cta-text">
+                <h3>Ready to visit the library?</h3>
+                <p>Log your visit and select your reason</p>
+              </div>
+              <a href="log-visit.html" class="btn-cta">+ Log a Visit</a>
+            </div>
+          </section>
+
+          <section id="section-history" class="section">
+            <div class="section-header">
+              <h2>Visit History</h2>
+              <p>Your complete library visit records</p>
+            </div>
+            <div class="table-card fade-in">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Reason</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody id="visits-table">
+                  <tr>
+                    <td colspan="4" class="empty-msg">Loading...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
 
     <script type="module" src="user.js"></script>
+    <script>
+      const toggle = document.getElementById("dark-toggle");
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggle.textContent = "☀️";
+      }
+      toggle.addEventListener("click", () => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "light");
+          toggle.textContent = "🌙";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          toggle.textContent = "☀️";
+        }
+      });
+
+      const menuBtn = document.getElementById("menu-btn");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarClose = document.getElementById("sidebar-close");
+
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+      });
+
+      sidebarClose.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+      });
+
+      document.querySelectorAll(".nav-item[data-section]").forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          const section = item.dataset.section;
+          document
+            .querySelectorAll(".nav-item")
+            .forEach((n) => n.classList.remove("active"));
+          item.classList.add("active");
+          document
+            .querySelectorAll(".section")
+            .forEach((s) => s.classList.remove("active"));
+          document.getElementById("section-" + section).classList.add("active");
+          document.getElementById("page-title").textContent =
+            section.charAt(0).toUpperCase() + section.slice(1);
+          sidebar.classList.remove("open");
+        });
+      });
+    </script>
   </body>
 </html>

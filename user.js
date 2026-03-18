@@ -10,14 +10,25 @@ if (user.role === "admin") {
   window.location.href = "admin.html";
 }
 
+const initials = user.name
+  .split(" ")
+  .map((n) => n[0])
+  .join("")
+  .substring(0, 2)
+  .toUpperCase();
+
+document.getElementById("user-avatar").textContent = initials;
+document.getElementById("user-name-top").textContent = user.name.split(" ")[0];
 document.getElementById("welcome-msg").textContent = "Welcome to NEU Library!";
 document.getElementById("user-info").textContent =
-  `${user.name} | ${user.college} | ${user.employee_status}`;
+  `${user.name} · ${user.college} · ${user.employee_status}`;
 document.getElementById("user-college").textContent = user.college;
 
-document.getElementById("log-visit-btn").addEventListener("click", () => {
-  window.location.href = "log-visit.html";
-});
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+  document.documentElement.setAttribute("data-theme", "dark");
+  document.getElementById("dark-toggle").textContent = "☀️";
+}
 
 document.getElementById("logout-btn").addEventListener("click", () => {
   localStorage.removeItem("neu_user");
@@ -40,8 +51,7 @@ async function loadVisits() {
   document.getElementById("total-visits").textContent = visits.length;
 
   if (visits.length > 0) {
-    const last = visits[0];
-    document.getElementById("last-visit").textContent = last.visit_date;
+    document.getElementById("last-visit").textContent = visits[0].visit_date;
   } else {
     document.getElementById("last-visit").textContent = "No visits yet";
   }
@@ -61,9 +71,11 @@ function updateTable(visits) {
   tbody.innerHTML = visits
     .map(
       (v, index) => `
-    <tr>
+    <tr class="fade-in">
       <td>${index + 1}</td>
-      <td>${v.reason || "—"}</td>
+      <td>
+        <span class="reason-pill">${v.reason || "—"}</span>
+      </td>
       <td>${v.visit_date}</td>
       <td>${v.visit_time}</td>
     </tr>

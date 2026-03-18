@@ -3,158 +3,273 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEU Library - Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>NEU Library — Admin Dashboard</title>
+    <link rel="stylesheet" href="theme.css" />
     <link rel="stylesheet" href="admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <div class="dashboard-container">
-      <div class="navbar">
-        <h1 class="nav-title">NEU Library — Admin</h1>
-        <button id="logout-btn" class="logout-btn">Log Out</button>
-      </div>
-
-      <div class="main-content">
-        <div class="filters-box">
-          <h3>Filter Visitors</h3>
-          <div class="filters-row">
-            <div class="filter-group">
-              <label>Date Range</label>
-              <select id="date-filter">
-                <option value="today">Today</option>
-                <option value="week">This Week</option>
-                <option value="custom">Custom Range</option>
-              </select>
-            </div>
-
-            <div class="filter-group" id="custom-range" style="display: none">
-              <label>From</label>
-              <input type="date" id="date-from" />
-            </div>
-
-            <div
-              class="filter-group"
-              id="custom-range-to"
-              style="display: none"
-            >
-              <label>To</label>
-              <input type="date" id="date-to" />
-            </div>
-
-            <div class="filter-group">
-              <label>Reason</label>
-              <select id="reason-filter">
-                <option value="">All Reasons</option>
-                <option value="Studying">Studying</option>
-                <option value="Borrowing Books">Borrowing Books</option>
-                <option value="Research">Research</option>
-                <option value="Group Work">Group Work</option>
-                <option value="Printing">Printing</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
-              <label>College</label>
-              <select id="college-filter">
-                <option value="">All Colleges</option>
-                <option value="College of Engineering">Engineering</option>
-                <option value="College of Business">Business</option>
-                <option value="College of Arts">Arts</option>
-                <option value="College of Nursing">Nursing</option>
-                <option value="College of Education">Education</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
-              <label>Visitor Type</label>
-              <select id="employee-filter">
-                <option value="">All</option>
-                <option value="employee">Employee</option>
-                <option value="student">Student</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
-              <button id="apply-btn" class="apply-btn">Apply Filters</button>
-            </div>
-          </div>
+    <div class="app-wrapper">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">NEU</div>
+          <span class="sidebar-title">NEU Library</span>
+          <button class="sidebar-close" id="sidebar-close">✕</button>
         </div>
 
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">👥</div>
-            <div class="stat-info">
-              <p class="stat-label">Total Visitors</p>
-              <h2 id="total-visitors" class="stat-value">0</h2>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🎓</div>
-            <div class="stat-info">
-              <p class="stat-label">Students</p>
-              <h2 id="total-students" class="stat-value">0</h2>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">👔</div>
-            <div class="stat-info">
-              <p class="stat-label">Employees</p>
-              <h2 id="total-employees" class="stat-value">0</h2>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">📖</div>
-            <div class="stat-info">
-              <p class="stat-label">Top Reason</p>
-              <h2 id="top-reason" class="stat-value">—</h2>
-            </div>
-          </div>
-        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" data-section="overview">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Overview</span>
+          </a>
+          <a href="#" class="nav-item" data-section="charts">
+            <span class="nav-icon">📈</span>
+            <span class="nav-label">Charts</span>
+          </a>
+          <a href="#" class="nav-item" data-section="visitors">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Visitor Log</span>
+          </a>
+        </nav>
 
-        <div class="charts-grid">
-          <div class="chart-card">
-            <h3>Visitors Per Day</h3>
-            <canvas id="chart-per-day"></canvas>
-          </div>
-          <div class="chart-card">
-            <h3>Visitors by Reason</h3>
-            <canvas id="chart-by-reason"></canvas>
-          </div>
-          <div class="chart-card">
-            <h3>Visitors by College</h3>
-            <canvas id="chart-by-college"></canvas>
-          </div>
-          <div class="chart-card">
-            <h3>Student vs Employee</h3>
-            <canvas id="chart-by-type"></canvas>
-          </div>
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="btn-sidebar-logout">
+            <span>🚪</span>
+            <span>Log Out</span>
+          </button>
         </div>
+      </aside>
 
-        <div class="table-box">
-          <h3>Visitor Log</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Student ID</th>
-                <th>College</th>
-                <th>Reason</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody id="visitors-table">
-              <tr>
-                <td colspan="7" class="empty-msg">Loading...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-btn" id="menu-btn">☰</button>
+            <div class="page-title" id="page-title">Overview</div>
+          </div>
+          <div class="topbar-right">
+            <div class="admin-badge">
+              <span>⚙️</span>
+              <span id="admin-name">Admin</span>
+            </div>
+            <button class="dark-toggle" id="dark-toggle">🌙</button>
+          </div>
+        </header>
+
+        <main class="content">
+          <section id="section-overview" class="section active">
+            <div class="filters-card fade-in">
+              <div class="filters-header">
+                <h3>🔍 Filter Visitors</h3>
+              </div>
+              <div class="filters-row">
+                <div class="filter-group">
+                  <label>Date Range</label>
+                  <select id="date-filter">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="custom">Custom Range</option>
+                  </select>
+                </div>
+                <div
+                  class="filter-group"
+                  id="custom-range"
+                  style="display: none"
+                >
+                  <label>From</label>
+                  <input type="date" id="date-from" />
+                </div>
+                <div
+                  class="filter-group"
+                  id="custom-range-to"
+                  style="display: none"
+                >
+                  <label>To</label>
+                  <input type="date" id="date-to" />
+                </div>
+                <div class="filter-group">
+                  <label>Reason</label>
+                  <select id="reason-filter">
+                    <option value="">All Reasons</option>
+                    <option value="Studying">Studying</option>
+                    <option value="Borrowing Books">Borrowing Books</option>
+                    <option value="Research">Research</option>
+                    <option value="Group Work">Group Work</option>
+                    <option value="Printing">Printing</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label>College</label>
+                  <select id="college-filter">
+                    <option value="">All Colleges</option>
+                    <option value="College of Engineering">Engineering</option>
+                    <option value="College of Business">Business</option>
+                    <option value="College of Arts">Arts</option>
+                    <option value="College of Nursing">Nursing</option>
+                    <option value="College of Education">Education</option>
+                    <option value="College of Computer Studies">
+                      Computer Studies
+                    </option>
+                    <option value="Administration">Administration</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label>Visitor Type</label>
+                  <select id="employee-filter">
+                    <option value="">All</option>
+                    <option value="employee">Employee</option>
+                    <option value="student">Student</option>
+                  </select>
+                </div>
+                <div class="filter-group filter-btn-group">
+                  <button id="apply-btn" class="btn-apply">
+                    Apply Filters
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-row fade-in">
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #fde8eb">
+                  <span style="font-size: 22px">👥</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">Total Visitors</p>
+                  <h3 id="total-visitors" class="stat-value">0</h3>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #dbeafe">
+                  <span style="font-size: 22px">🎓</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">Students</p>
+                  <h3 id="total-students" class="stat-value">0</h3>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #dcfce7">
+                  <span style="font-size: 22px">👔</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">Employees</p>
+                  <h3 id="total-employees" class="stat-value">0</h3>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon-wrap" style="background: #fef9c3">
+                  <span style="font-size: 22px">📖</span>
+                </div>
+                <div class="stat-info">
+                  <p class="stat-label">Top Reason</p>
+                  <h3 id="top-reason" class="stat-value">—</h3>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="section-charts" class="section">
+            <div class="charts-grid fade-in">
+              <div class="chart-card">
+                <h3>📅 Visitors Per Day</h3>
+                <canvas id="chart-per-day"></canvas>
+              </div>
+              <div class="chart-card">
+                <h3>📋 Visitors by Reason</h3>
+                <canvas id="chart-by-reason"></canvas>
+              </div>
+              <div class="chart-card">
+                <h3>🏫 Visitors by College</h3>
+                <canvas id="chart-by-college"></canvas>
+              </div>
+              <div class="chart-card">
+                <h3>👤 Student vs Employee</h3>
+                <canvas id="chart-by-type"></canvas>
+              </div>
+            </div>
+          </section>
+
+          <section id="section-visitors" class="section">
+            <div class="section-header">
+              <h2>Visitor Log</h2>
+              <p>Complete list of library visitors</p>
+            </div>
+            <div class="table-card fade-in">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>College</th>
+                    <th>Reason</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody id="visitors-table">
+                  <tr>
+                    <td colspan="7" class="empty-msg">Loading...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
 
     <script type="module" src="admin.js"></script>
+    <script>
+      const toggle = document.getElementById("dark-toggle");
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggle.textContent = "☀️";
+      }
+      toggle.addEventListener("click", () => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "light");
+          toggle.textContent = "🌙";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          toggle.textContent = "☀️";
+        }
+      });
+
+      const menuBtn = document.getElementById("menu-btn");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarClose = document.getElementById("sidebar-close");
+
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+      });
+
+      sidebarClose.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+      });
+
+      document.querySelectorAll(".nav-item[data-section]").forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          const section = item.dataset.section;
+          document
+            .querySelectorAll(".nav-item")
+            .forEach((n) => n.classList.remove("active"));
+          item.classList.add("active");
+          document
+            .querySelectorAll(".section")
+            .forEach((s) => s.classList.remove("active"));
+          document.getElementById("section-" + section).classList.add("active");
+          document.getElementById("page-title").textContent =
+            section.charAt(0).toUpperCase() + section.slice(1);
+          sidebar.classList.remove("open");
+        });
+      });
+    </script>
   </body>
 </html>

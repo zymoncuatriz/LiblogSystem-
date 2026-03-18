@@ -10,6 +10,14 @@ if (user.role !== "admin") {
   window.location.href = "user.html";
 }
 
+document.getElementById("admin-name").textContent = user.name.split(" ")[0];
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+  document.documentElement.setAttribute("data-theme", "dark");
+  document.getElementById("dark-toggle").textContent = "☀️";
+}
+
 document.getElementById("logout-btn").addEventListener("click", () => {
   localStorage.removeItem("neu_user");
   window.location.href = "index.html";
@@ -133,8 +141,6 @@ function updateCharts(visits) {
     perDayCount[date] = (perDayCount[date] || 0) + 1;
   });
   const sortedDays = Object.keys(perDayCount).sort();
-  const perDayLabels = sortedDays;
-  const perDayData = sortedDays.map((d) => perDayCount[d]);
 
   const reasonCount = {};
   visits.forEach((v) => {
@@ -154,6 +160,22 @@ function updateCharts(visits) {
   ).length;
   const students = visits.length - employees;
 
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const gridColor = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
+  const tickColor = isDark ? "#94a3b8" : "#64748b";
+
+  const chartDefaults = {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: tickColor,
+          font: { family: "Plus Jakarta Sans", size: 12 },
+        },
+      },
+    },
+  };
+
   if (chartPerDay) chartPerDay.destroy();
   if (chartByReason) chartByReason.destroy();
   if (chartByCollege) chartByCollege.destroy();
@@ -162,20 +184,34 @@ function updateCharts(visits) {
   chartPerDay = new Chart(document.getElementById("chart-per-day"), {
     type: "bar",
     data: {
-      labels: perDayLabels,
+      labels: sortedDays,
       datasets: [
         {
           label: "Visitors",
-          data: perDayData,
+          data: sortedDays.map((d) => perDayCount[d]),
           backgroundColor: "#c8102e",
-          borderRadius: 6,
+          borderRadius: 8,
+          borderSkipped: false,
         },
       ],
     },
     options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+      ...chartDefaults,
+      plugins: {
+        ...chartDefaults.plugins,
+        legend: { display: false },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, color: tickColor },
+          grid: { color: gridColor },
+        },
+        x: {
+          ticks: { color: tickColor },
+          grid: { color: gridColor },
+        },
+      },
     },
   });
 
@@ -189,19 +225,33 @@ function updateCharts(visits) {
           data: Object.values(reasonCount),
           backgroundColor: [
             "#c8102e",
-            "#e84c6e",
-            "#f4a0b0",
-            "#a50d26",
-            "#ff6b8a",
+            "#1e1b4b",
+            "#2563eb",
+            "#16a34a",
+            "#d97706",
           ],
-          borderRadius: 6,
+          borderRadius: 8,
+          borderSkipped: false,
         },
       ],
     },
     options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+      ...chartDefaults,
+      plugins: {
+        ...chartDefaults.plugins,
+        legend: { display: false },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, color: tickColor },
+          grid: { color: gridColor },
+        },
+        x: {
+          ticks: { color: tickColor },
+          grid: { color: gridColor },
+        },
+      },
     },
   });
 
@@ -214,37 +264,58 @@ function updateCharts(visits) {
           data: Object.values(collegeCount),
           backgroundColor: [
             "#c8102e",
-            "#e84c6e",
-            "#a50d26",
-            "#f4a0b0",
-            "#ff6b8a",
+            "#1e1b4b",
+            "#2563eb",
+            "#16a34a",
+            "#d97706",
+            "#7c3aed",
           ],
+          borderWidth: 2,
+          borderColor: isDark ? "#1e293b" : "#ffffff",
         },
       ],
     },
     options: {
-      responsive: true,
+      ...chartDefaults,
       plugins: {
-        legend: { position: "bottom", labels: { font: { size: 11 } } },
+        ...chartDefaults.plugins,
+        legend: {
+          position: "bottom",
+          labels: {
+            color: tickColor,
+            font: { family: "Plus Jakarta Sans", size: 11 },
+            padding: 16,
+          },
+        },
       },
     },
   });
 
   chartByType = new Chart(document.getElementById("chart-by-type"), {
-    type: "pie",
+    type: "doughnut",
     data: {
       labels: ["Students", "Employees"],
       datasets: [
         {
           data: [students, employees],
-          backgroundColor: ["#c8102e", "#a50d26"],
+          backgroundColor: ["#c8102e", "#1e1b4b"],
+          borderWidth: 2,
+          borderColor: isDark ? "#1e293b" : "#ffffff",
         },
       ],
     },
     options: {
-      responsive: true,
+      ...chartDefaults,
       plugins: {
-        legend: { position: "bottom", labels: { font: { size: 11 } } },
+        ...chartDefaults.plugins,
+        legend: {
+          position: "bottom",
+          labels: {
+            color: tickColor,
+            font: { family: "Plus Jakarta Sans", size: 11 },
+            padding: 16,
+          },
+        },
       },
     },
   });
@@ -262,12 +333,12 @@ function updateTable(visits) {
   tbody.innerHTML = visits
     .map(
       (v) => `
-    <tr>
+    <tr class="fade-in">
       <td>${v.students?.name || "—"}</td>
       <td>${v.students?.student_id || "—"}</td>
       <td>${v.students?.college || "—"}</td>
-      <td>${v.reason || "—"}</td>
-      <td>${v.students?.employee_status || "—"}</td>
+      <td><span class="reason-pill">${v.reason || "—"}</span></td>
+      <td><span class="type-pill ${v.students?.employee_status === "Student" ? "pill-student" : "pill-employee"}">${v.students?.employee_status || "—"}</span></td>
       <td>${v.visit_date}</td>
       <td>${v.visit_time}</td>
     </tr>

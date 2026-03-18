@@ -3,57 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEU Library - Log Visit</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>NEU Library — Log Visit</title>
+    <link rel="stylesheet" href="theme.css" />
     <link rel="stylesheet" href="log-visit.css" />
   </head>
   <body>
-    <div class="navbar">
-      <h1 class="nav-title">NEU Library</h1>
-      <button id="logout-btn" class="logout-btn">Log Out</button>
-    </div>
-
-    <div class="log-container">
-      <div class="log-box">
-        <div class="log-header">
-          <div class="log-icon">📋</div>
-          <h2>Log Your Visit</h2>
-          <p id="student-name"></p>
+    <div class="page-wrapper">
+      <nav class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-logo">NEU</div>
+          <span class="topbar-title">NEU Library</span>
         </div>
+        <div class="topbar-right">
+          <button class="dark-toggle" id="dark-toggle">🌙</button>
+          <button id="logout-btn" class="btn-logout">Log Out</button>
+        </div>
+      </nav>
 
-        <div id="error-msg" class="error-msg hidden"></div>
-        <div id="success-msg" class="success-msg hidden"></div>
-
-        <div class="form-group">
-          <label>Reason for Visit</label>
-          <div class="reason-grid">
-            <button class="reason-btn" data-reason="Studying">
-              <span class="reason-icon">📖</span>
-              <span>Studying</span>
-            </button>
-            <button class="reason-btn" data-reason="Borrowing Books">
-              <span class="reason-icon">📚</span>
-              <span>Borrowing Books</span>
-            </button>
-            <button class="reason-btn" data-reason="Research">
-              <span class="reason-icon">🔬</span>
-              <span>Research</span>
-            </button>
-            <button class="reason-btn" data-reason="Group Work">
-              <span class="reason-icon">👥</span>
-              <span>Group Work</span>
-            </button>
-            <button class="reason-btn" data-reason="Printing">
-              <span class="reason-icon">🖨️</span>
-              <span>Printing</span>
-            </button>
+      <div class="content">
+        <div class="log-card fade-in">
+          <div class="log-header">
+            <div class="log-avatar">📋</div>
+            <div>
+              <h2>Log Your Visit</h2>
+              <p id="student-name">Loading...</p>
+            </div>
           </div>
-        </div>
 
-        <button id="submit-btn" class="login-btn" disabled>Log Visit</button>
+          <div id="error-msg" class="error-msg hidden"></div>
+          <div id="success-msg" class="success-msg hidden"></div>
+
+          <div class="reason-section">
+            <label>Select your reason for visiting</label>
+            <div class="reason-grid">
+              <button class="reason-btn" data-reason="Studying">
+                <span class="reason-emoji">📖</span>
+                <span class="reason-label">Studying</span>
+              </button>
+
+              <button class="reason-btn" data-reason="Borrowing Books">
+                <span class="reason-emoji">📚</span>
+                <span class="reason-label">Borrowing Books</span>
+              </button>
+
+              <button class="reason-btn" data-reason="Research">
+                <span class="reason-emoji">🔬</span>
+                <span class="reason-label">Research</span>
+              </button>
+
+              <button class="reason-btn" data-reason="Group Work">
+                <span class="reason-emoji">👥</span>
+                <span class="reason-label">Group Work</span>
+              </button>
+
+              <button class="reason-btn" data-reason="Printing">
+                <span class="reason-emoji">🖨️</span>
+                <span class="reason-label">Printing</span>
+              </button>
+            </div>
+          </div>
+
+          <button id="submit-btn" class="btn-primary" disabled>
+            Log Visit
+          </button>
+        </div>
       </div>
     </div>
 
     <script type="module" src="log-visit.js"></script>
+    <script>
+      const toggle = document.getElementById("dark-toggle");
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggle.textContent = "☀️";
+      }
+      toggle.addEventListener("click", () => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "light");
+          toggle.textContent = "🌙";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          toggle.textContent = "☀️";
+        }
+      });
+    </script>
   </body>
 </html>

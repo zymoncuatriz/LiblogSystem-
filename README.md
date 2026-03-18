@@ -18,21 +18,21 @@ A web-based library visitor logging system built with HTML, CSS, and Supabase.
 - Role-based access (User & Admin)
 - Visitor statistics dashboard
 
-Instruction
-Student Account:
-Email:jcesperanza@neu.edu.ph
-Password:Jcesperanza@123
-Role: Student
+Instruction <br>
+Student Account:<br>
+Email:jcesperanza@neu.edu.ph <br> 
+Password:Jcesperanza@123 <br>
+Role: Student <br> <br> 
 
-Admin Account:
-Email: jcesperanza.admin@neu.edu.ph
-Password: Admin@1234
-Role: Admin
+Admin Account: <br>
+Email: jcesperanza.admin@neu.edu.ph <br>
+Password: Admin@1234 <br>
+Role: Admin <br> <br>
 
-Student Account:
-Email: zymon.cuatriz@neu.edu.ph
-Password: Zymon@1234
-Role: Student
+Student Account:<br>
+Email: zymon.cuatriz@neu.edu.ph<br>
+Password: Zymon@1234<br>
+Role: Student<br><br>
 
 
 

@@ -1,8 +1,19 @@
 import { supabase } from "./supabase.js";
 
 const loginBtn = document.getElementById("login-btn");
+const googleBtn = document.getElementById("google-btn");
 const errorMsg = document.getElementById("error-msg");
 
+// Handle Google OAuth redirect result
+const {
+  data: { session },
+} = await supabase.auth.getSession();
+
+if (session?.user) {
+  await handleGoogleUser(session.user);
+}
+
+// Student ID / Email + Password login
 loginBtn.addEventListener("click", async () => {
   const identifier = document.getElementById("identifier").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -64,9 +75,77 @@ loginBtn.addEventListener("click", async () => {
   if (role === "admin") {
     window.location.href = "admin.html";
   } else {
-    window.location.href = "user.html";
+    window.location.href = "log-visit.html";
   }
 });
+
+// Google login button
+googleBtn.addEventListener("click", async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin + "/index.html",
+    },
+  });
+
+  if (error) {
+    showError("Google sign in failed. Please try again.");
+    console.error(error);
+  }
+});
+
+// Handle Google user after redirect
+async function handleGoogleUser(googleUser) {
+  const email = googleUser.email;
+
+  // Check if email exists in students table
+  const { data: student, error } = await supabase
+    .from("students")
+    .select("student_id, name, email, college, employee_status")
+    .eq("email", email)
+    .single();
+
+  if (error || !student) {
+    // Not in database → go to registration
+    localStorage.setItem(
+      "google_user",
+      JSON.stringify({
+        email: googleUser.email,
+        name: googleUser.user_metadata?.full_name || "",
+        avatar: googleUser.user_metadata?.avatar_url || "",
+      }),
+    );
+    window.location.href = "register.html";
+    return;
+  }
+
+  // Found in database → get role and redirect
+  const { data: roleData } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("email", email)
+    .single();
+
+  const role = roleData?.role || "student";
+
+  localStorage.setItem(
+    "neu_user",
+    JSON.stringify({
+      student_id: student.student_id,
+      name: student.name,
+      email: student.email,
+      college: student.college,
+      employee_status: student.employee_status,
+      role: role,
+    }),
+  );
+
+  if (role === "admin") {
+    window.location.href = "admin.html";
+  } else {
+    window.location.href = "log-visit.html";
+  }
+}
 
 function showError(msg) {
   errorMsg.textContent = msg;

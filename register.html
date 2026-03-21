@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEU Library — Register</title>
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="register.css" />
+  </head>
+  <body>
+    <div class="register-wrapper">
+      <div class="register-card">
+        <div class="register-logo">
+          <div class="register-logo-icon">NEU</div>
+          <div class="register-logo-text">
+            <h1>NEU Library</h1>
+            <p>Complete Your Registration</p>
+          </div>
+        </div>
+
+        <div class="google-info" id="google-info">
+          <div class="google-avatar" id="google-avatar"></div>
+          <div class="google-details">
+            <p id="google-name">Loading...</p>
+            <span id="google-email">Loading...</span>
+          </div>
+        </div>
+
+        <div id="error-msg" class="error-msg hidden"></div>
+        <div id="success-msg" class="success-msg hidden"></div>
+
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input
+              type="text"
+              id="full-name"
+              placeholder="Enter your full name"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="student-id">Student ID</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🪪</span>
+            <input type="text" id="student-id" placeholder="e.g. 2021-00001" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="college">College</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🏫</span>
+            <select id="college">
+              <option value="">Select your college</option>
+              <option value="College of Engineering">
+                College of Engineering
+              </option>
+              <option value="College of Business">College of Business</option>
+              <option value="College of Arts">College of Arts</option>
+              <option value="College of Nursing">College of Nursing</option>
+              <option value="College of Education">College of Education</option>
+              <option value="College of Computer Studies">
+                College of Computer Studies
+              </option>
+              <option value="Administration">Administration</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="employee-status">Status</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🎓</span>
+            <select id="employee-status">
+              <option value="">Select your status</option>
+              <option value="Student">Student</option>
+              <option value="Faculty">Faculty</option>
+              <option value="Staff">Staff</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="register-btn" class="btn-primary">
+          Complete Registration
+        </button>
+
+        <div class="register-footer">
+          <button id="back-btn" class="btn-back">← Back to Login</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="register.js"></script>
+    <script>
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+  </body>
+</html>

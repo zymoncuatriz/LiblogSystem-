@@ -350,3 +350,12 @@ function updateTable(visits) {
 document.getElementById("apply-btn").addEventListener("click", loadVisitors);
 
 loadVisitors();
+document.getElementById("search-input").addEventListener("input", function () {
+  const query = this.value.toLowerCase().trim();
+  const rows = document.querySelectorAll("#visitors-table tr");
+
+  rows.forEach((row) => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(query) ? "" : "none";
+  });
+});

@@ -1,19 +1,110 @@
-<div class="form-group">
-  <label for="password">Password</label>
-  <div class="input-wrapper">
-    <span class="input-icon">🔒</span>
-    <input type="password" id="password" placeholder="Enter your password" />
-    <button type="button" id="toggle-password" class="toggle-password">
-      👁️ const togglePassword = document.getElementById('toggle-password') const
-      passwordInput = document.getElementById('password')
-      togglePassword.addEventListener('click', () => { const isPassword =
-      passwordInput.type === 'password' passwordInput.type = isPassword ? 'text'
-      : 'password' togglePassword.textContent = isPassword ? '🙈' : '👁️' })
-    </button>
-  </div>
-</div>
-<div class="bg-pattern">
-  <div class="bg-circle bg-circle-1"></div>
-  <div class="bg-circle bg-circle-2"></div>
-  <div class="bg-circle bg-circle-3"></div>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEU Library — Log System</title>
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-pattern">
+      <div class="bg-circle bg-circle-1"></div>
+      <div class="bg-circle bg-circle-2"></div>
+      <div class="bg-circle bg-circle-3"></div>
+    </div>
+
+    <div class="login-wrapper">
+      <div class="login-card">
+        <div class="login-logo">
+          <div class="login-logo-icon">NEU</div>
+          <div class="login-logo-text">
+            <h1>NEU Library</h1>
+            <p>Visitor Log System</p>
+          </div>
+        </div>
+
+        <div id="error-msg" class="error-msg hidden"></div>
+
+        <div class="form-group">
+          <label for="identifier">Student ID or Email</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input
+              type="text"
+              id="identifier"
+              placeholder="Enter your Student ID or Email"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+            <button type="button" id="toggle-password" class="toggle-password">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button id="login-btn" class="btn-primary">Log In</button>
+
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <button id="google-btn" class="btn-google">
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            width="20"
+            height="20"
+          />
+          Sign in with Google
+        </button>
+
+        <div class="login-footer">
+          <button class="dark-toggle" id="dark-toggle">🌙 Dark Mode</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+    <script>
+      const toggle = document.getElementById("dark-toggle");
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggle.textContent = "☀️ Light Mode";
+      }
+      toggle.addEventListener("click", () => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "light");
+          toggle.textContent = "🌙 Dark Mode";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          toggle.textContent = "☀️ Light Mode";
+        }
+      });
+
+      const togglePassword = document.getElementById("toggle-password");
+      const passwordInput = document.getElementById("password");
+      togglePassword.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type = isPassword ? "text" : "password";
+        togglePassword.textContent = isPassword ? "🙈" : "👁️";
+      });
+    </script>
+  </body>
+</html>

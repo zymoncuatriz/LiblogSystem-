@@ -94,3 +94,9 @@ document.getElementById("search-input").addEventListener("input", function () {
     row.style.display = text.includes(query) ? "" : "none";
   });
 });
+document.getElementById("logout-btn").addEventListener("click", async () => {
+  localStorage.removeItem("neu_user");
+  localStorage.setItem("logging_out", "true");
+  await supabase.auth.signOut();
+  window.location.href = "index.html";
+});

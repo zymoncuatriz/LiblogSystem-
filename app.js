@@ -4,13 +4,19 @@ const loginBtn = document.getElementById("login-btn");
 const googleBtn = document.getElementById("google-btn");
 const errorMsg = document.getElementById("error-msg");
 
-// Handle Google OAuth redirect result
-const {
-  data: { session },
-} = await supabase.auth.getSession();
-
-if (session?.user) {
-  await handleGoogleUser(session.user);
+// Check if this is a logout redirect
+const isLogout = localStorage.getItem("logging_out");
+if (isLogout) {
+  localStorage.removeItem("logging_out");
+  await supabase.auth.signOut();
+} else {
+  // Only check Google session if not logging out
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (session?.user) {
+    await handleGoogleUser(session.user);
+  }
 }
 
 // Student ID / Email + Password login
@@ -98,7 +104,6 @@ googleBtn.addEventListener("click", async () => {
 async function handleGoogleUser(googleUser) {
   const email = googleUser.email;
 
-  // Check if email exists in students table
   const { data: student, error } = await supabase
     .from("students")
     .select("student_id, name, email, college, employee_status")
@@ -106,7 +111,6 @@ async function handleGoogleUser(googleUser) {
     .single();
 
   if (error || !student) {
-    // Not in database → go to registration
     localStorage.setItem(
       "google_user",
       JSON.stringify({
@@ -119,7 +123,6 @@ async function handleGoogleUser(googleUser) {
     return;
   }
 
-  // Found in database → get role and redirect
   const { data: roleData } = await supabase
     .from("user_roles")
     .select("role")

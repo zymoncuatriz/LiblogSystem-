@@ -128,6 +128,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
+}
+
+[data-theme="dark"] .main-area {
+  background: linear-gradient(135deg, #0f172a 0%, #1a1040 100%);
 }
 
 .topbar {

@@ -19,7 +19,7 @@ if (isLogout) {
 googleBtn.addEventListener("click", async () => {
   errorMsg.classList.add("hidden");
   googleBtn.disabled = true;
-  googleBtn.innerHTML = <span>Redirecting to Google...</span>;
+  googleBtn.textContent = "Redirecting to Google...";
 
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -31,10 +31,7 @@ googleBtn.addEventListener("click", async () => {
   if (error) {
     showError("Google sign in failed. Please try again.");
     googleBtn.disabled = false;
-    googleBtn.innerHTML = `
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" height="20" />
-      Sign in with Google
-    `;
+    googleBtn.textContent = "Sign in with Google";
     console.error(error);
   }
 });

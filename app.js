@@ -64,14 +64,6 @@ async function handleGoogleUser(googleUser) {
     return;
   }
 
-  const { data: roleData } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("email", email)
-    .single();
-
-  const role = roleData?.role || "student";
-
   localStorage.setItem(
     "neu_user",
     JSON.stringify({
@@ -80,15 +72,11 @@ async function handleGoogleUser(googleUser) {
       email: student.email,
       college: student.college,
       employee_status: student.employee_status,
-      role: role,
+      role: "student",
     }),
   );
 
-  if (role === "admin") {
-    window.location.href = "admin.html";
-  } else {
-    window.location.href = "log-visit.html";
-  }
+  window.location.href = "log-visit.html";
 }
 
 function showError(msg) {

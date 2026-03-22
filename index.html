@@ -12,6 +12,8 @@
       <div class="bg-circle bg-circle-1"></div>
       <div class="bg-circle bg-circle-2"></div>
       <div class="bg-circle bg-circle-3"></div>
+      <div class="bg-circle bg-circle-4"></div>
+      <div class="bg-circle bg-circle-5"></div>
     </div>
 
     <div class="login-wrapper">
@@ -24,41 +26,15 @@
           </div>
         </div>
 
+        <div class="visitor-banner">
+          <div class="visitor-icon">📚</div>
+          <div class="visitor-text">
+            <h2>Welcome, Visitor!</h2>
+            <p>Sign in with your Google account to log your library visit.</p>
+          </div>
+        </div>
+
         <div id="error-msg" class="error-msg hidden"></div>
-
-        <div class="form-group">
-          <label for="identifier">Student ID or Email</label>
-          <div class="input-wrapper">
-            <span class="input-icon">👤</span>
-            <input
-              type="text"
-              id="identifier"
-              placeholder="Enter your Student ID or Email"
-              autocomplete="off"
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-wrapper">
-            <span class="input-icon">🔒</span>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-            />
-            <button type="button" id="toggle-password" class="toggle-password">
-              👁️
-            </button>
-          </div>
-        </div>
-
-        <button id="login-btn" class="btn-primary">Log In</button>
-
-        <div class="divider">
-          <span>or</span>
-        </div>
 
         <button id="google-btn" class="btn-google">
           <img
@@ -71,6 +47,9 @@
         </button>
 
         <div class="login-footer">
+          <a href="admin-login.html" class="btn-admin-portal">
+            ⚙️ Admin Portal
+          </a>
           <button class="dark-toggle" id="dark-toggle">🌙 Dark Mode</button>
         </div>
       </div>
@@ -96,14 +75,6 @@
           localStorage.setItem("theme", "dark");
           toggle.textContent = "☀️ Light Mode";
         }
-      });
-
-      const togglePassword = document.getElementById("toggle-password");
-      const passwordInput = document.getElementById("password");
-      togglePassword.addEventListener("click", () => {
-        const isPassword = passwordInput.type === "password";
-        passwordInput.type = isPassword ? "text" : "password";
-        togglePassword.textContent = isPassword ? "🙈" : "👁️";
       });
     </script>
   </body>

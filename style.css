@@ -200,3 +200,34 @@
     padding: 28px 20px;
   }
 }
+
+.login-footer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-admin-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font);
+  transition: var(--transition);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-admin-portal:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+  background: #f0f0ff;
+}

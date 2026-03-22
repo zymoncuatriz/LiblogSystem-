@@ -154,3 +154,10 @@ function showError(msg) {
   errorMsg.textContent = msg;
   errorMsg.classList.remove("hidden");
 }
+
+document.getElementById("logout-btn").addEventListener("click", async () => {
+  localStorage.removeItem("neu_user");
+  localStorage.setItem("logging_out", "true");
+  await supabase.auth.signOut();
+  window.location.href = "index.html";
+});

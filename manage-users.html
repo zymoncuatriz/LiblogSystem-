@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEU Library — Manage Users</title>
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="manage-users.css" />
+  </head>
+  <body>
+    <div class="bg-pattern">
+      <div class="bg-circle bg-circle-1"></div>
+      <div class="bg-circle bg-circle-2"></div>
+      <div class="bg-circle bg-circle-3"></div>
+      <div class="bg-circle bg-circle-4"></div>
+      <div class="bg-circle bg-circle-5"></div>
+    </div>
+
+    <div class="app-wrapper">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">NEU</div>
+          <span class="sidebar-title">NEU Library</span>
+          <button class="sidebar-close" id="sidebar-close">✕</button>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="admin.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+          <a href="manage-users.html" class="nav-item active">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Manage Users</span>
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="btn-sidebar-logout">
+            <span>🚪</span>
+            <span>Log Out</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-btn" id="menu-btn">☰</button>
+            <div class="page-title">Manage Users</div>
+          </div>
+          <div class="topbar-right">
+            <div class="admin-badge">
+              <span>⚙️</span>
+              <span id="admin-name">Admin</span>
+            </div>
+            <button class="dark-toggle" id="dark-toggle">🌙</button>
+          </div>
+        </header>
+
+        <main class="content">
+          <div class="action-bar fade-in">
+            <div class="search-wrapper">
+              <span class="search-icon">🔍</span>
+              <input
+                type="text"
+                id="search-input"
+                class="search-input"
+                placeholder="Search by name, ID, email..."
+              />
+            </div>
+            <button id="add-user-btn" class="btn-add">➕ Add User</button>
+          </div>
+
+          <div class="table-card fade-in">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>College</th>
+                  <th>Status</th>
+                  <th>Type</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-table">
+                <tr>
+                  <td colspan="7" class="empty-msg">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="add-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Add New User</h3>
+          <button class="modal-close" id="close-add-modal">✕</button>
+        </div>
+        <div id="add-error" class="error-msg hidden"></div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="add-name" placeholder="Enter full name" />
+        </div>
+        <div class="form-group">
+          <label>Student ID</label>
+          <input
+            type="text"
+            id="add-student-id"
+            placeholder="e.g. 2021-00011"
+          />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="add-email" placeholder="Enter email" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            id="add-password"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="form-group">
+          <label>College</label>
+          <select id="add-college">
+            <option value="">Select college</option>
+            <option value="College of Engineering">
+              College of Engineering
+            </option>
+            <option value="College of Business">College of Business</option>
+            <option value="College of Arts">College of Arts</option>
+            <option value="College of Nursing">College of Nursing</option>
+            <option value="College of Education">College of Education</option>
+            <option value="College of Computer Studies">
+              College of Computer Studies
+            </option>
+            <option value="Administration">Administration</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="add-status">
+            <option value="Student">Student</option>
+            <option value="Faculty">Faculty</option>
+            <option value="Staff">Staff</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button id="cancel-add" class="btn-cancel">Cancel</button>
+          <button id="confirm-add" class="btn-confirm">Add User</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="reset-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Reset Password</h3>
+          <button class="modal-close" id="close-reset-modal">✕</button>
+        </div>
+        <div id="reset-error" class="error-msg hidden"></div>
+        <p class="modal-desc">
+          Setting new password for: <strong id="reset-user-name"></strong>
+        </p>
+        <div class="form-group">
+          <label>New Password</label>
+          <input
+            type="password"
+            id="reset-password"
+            placeholder="Enter new password"
+          />
+        </div>
+        <div class="modal-actions">
+          <button id="cancel-reset" class="btn-cancel">Cancel</button>
+          <button id="confirm-reset" class="btn-confirm">Reset Password</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div id="delete-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Delete User</h3>
+          <button class="modal-close" id="close-delete-modal">✕</button>
+        </div>
+        <p class="modal-desc">
+          Are you sure you want to delete
+          <strong id="delete-user-name"></strong>? This cannot be undone.
+        </p>
+        <div class="modal-actions">
+          <button id="cancel-delete" class="btn-cancel">Cancel</button>
+          <button id="confirm-delete" class="btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="manage-users.js"></script>
+    <script>
+      const toggle = document.getElementById("dark-toggle");
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggle.textContent = "☀️";
+      }
+      toggle.addEventListener("click", () => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "light");
+          toggle.textContent = "🌙";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          toggle.textContent = "☀️";
+        }
+      });
+
+      const menuBtn = document.getElementById("menu-btn");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarClose = document.getElementById("sidebar-close");
+
+      menuBtn.addEventListener("click", () => sidebar.classList.toggle("open"));
+      sidebarClose.addEventListener("click", () =>
+        sidebar.classList.remove("open"),
+      );
+    </script>
+  </body>
+</html>
